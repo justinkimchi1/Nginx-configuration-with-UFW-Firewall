@@ -1,5 +1,5 @@
 [Unit]
-Description=Runs the generate_index script everyday at 5:00
+Description="Runs the generate_index script everyday at 5:00"
 
 [Service]
 ExecStart=/var/lib/webgen/bin/generate-index
