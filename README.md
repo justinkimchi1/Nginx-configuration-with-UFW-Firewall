@@ -212,7 +212,47 @@ sudo journalctl -u nginx
 ```
 
 ## Task 4 Setting up UFW Firewall
+1. Install UFW
+```
+sudo pacman -S ufw
+```
 
+> ⚠️ **Warning:** Do not enable the UFW service yet because it will lock us out of our droplet. Please follow the next steps first.
+
+2. Enable `ssh` and `http` connection [[8]](#8-week-twelve-notes)
+```
+sudo ufw allow SSH
+sudo ufw allow http
+```
+> If successful, you should see `Rules updated` and `Rules updated (v6)` in your terminal
+
+3. Enable ssh rate limiting [[9]](#9-uncomplicated-firewall)
+```
+sudo ufw limit SSH
+```
+> This denies connections from ip addresses that have attempted to intiate 6 or more connections in the last 30 seconds
+
+4. Enable the service. This step should only be done after completing steps 2 & 3!
+```
+sudo ufw enable 
+```
+You can check your firewall status with:
+```
+sudo ufw status
+```
+Your firewall should looks something like this:
+```
+Status: active
+
+To                         Action      From
+--                         ------      ----
+SSH                        LIMIT       Anywhere
+80                         ALLOW       Anywhere
+SSH (v6)                   LIMIT       Anywhere (v6)
+80 (v6)                    ALLOW       Anywhere (v6)
+```
+
+You have activated your firewall!
 
 # References
 #### [1] Useradd Command
@@ -228,6 +268,8 @@ Arch Linux Manual Pages, "Systemctl(1)," https://man.archlinux.org/man/systemctl
 #### [6]Systemd/Journal
 ArchWiki, "Systemd/Journal," https://wiki.archlinux.org/title/Systemd/Journal (accessed Nov. 22, 2024).
 #### [7] Nginx
-ArchWiki, "Nginx," https://wiki.archlinux.org/title/Nginx (accessed Nov. 22, 2024).
+ArchWiki, "Nginx," https://wiki.archlinux.org/title/Nginx (accessed Nov. 23, 2024).
 #### [8] Week Twelve Notes
-GitLab, "Week Twelve Notes," https://gitlab.com/cit2420/2420-notes-f24/-/blob/main/2420-notes/week-twelve.md (accessed Nov. 22, 2024).
+GitLab, "Week Twelve Notes," https://gitlab.com/cit2420/2420-notes-f24/-/blob/main/2420-notes/week-twelve.md (accessed Nov. 23, 2024).
+#### [9] Uncomplicated Firewall
+ArchWiki, "Uncomplicated Firewall," https://wiki.archlinux.org/title/Uncomplicated_Firewall (accessed Nov. 23, 2024).
