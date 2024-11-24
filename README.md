@@ -254,6 +254,17 @@ SSH (v6)                   LIMIT       Anywhere (v6)
 
 You have activated your firewall!
 
+## Task 5 Access your server
+1. Access your server by entering your ip address into the search bar
+```
+http://ip-address-here
+```
+After pressing enter, you should see something like this:
+
+![Nginx Server](./nginxserver.png)
+
+You have successfully completed this tutorial!
+
 # References
 #### [1] Useradd Command
 SS64, "Useradd Command," https://ss64.com/bash/useradd.html (accessed Nov. 22, 2024). 
