@@ -2,7 +2,7 @@
 In this assignment we will be performing tasks such as creating new system users to run `.service` and `.timer` scripts on a Nginx server with a UFW firewall. 
 
 ## Task 1 Creating a System User
-Here we will create a system user with a specified home directory and a login shell appropriate for a non-login user. We use a system user here because they are used for specific purposes such as running our nginx server in this case. If the nginx configuration gets compromised, it won't affect other parts of the system. Also system users cannot log in, further restricting access and improving security.
+Here we will create a system user with a specified home directory and a login shell appropriate for a non-login user. We use a system user here because they are used for specific purposes such as running our nginx server in this case. If the nginx configuration gets compromised, it won't affect other parts of the system. Also system users cannot log in, further restricting access and improving security. [[10]](#10-users-and-groups-example-adding-a-system-user)
 1. Creating the system user with specified home and shell. [[1]](#1-useradd-command)
 ```
 sudo useradd -r -d /var/lib/webgen -s /usr/sbin/nologin webgen
@@ -55,7 +55,7 @@ sudo chown -R webgen:webgen /var/lib/webgen
 You have finished creating a system user with the appropriate directory structure and ownership!
 
 ## Task 2 Creating a `.service` and `.timer` scripts
-Here we will create service files that run our `generate-index` script. We will then create a timer to run that service file. We will verify that these scripts are active and running using systemctl command lines, and we will check the services execution using the journalctl command. 
+Here we will create service files that run our `generate-index` script. We will then create a timer to run that service file. We will verify that these scripts are active and running using systemctl command lines, and we will check the services execution using the journalctl command. [[4]](#4-systemdtimers)[[5]](#5-systemctl)
 
 1. Create the `generate-index.service` file 
 ```
@@ -117,7 +117,7 @@ journalctl -u generate-index.service
 You have created your service and timer files!
 
 ## Task 3 Nginx Configuration
-This entire section was made with the help of [Nginx ArchWiki](#7-nginx) and [Week 10 Notes](#8-week-twelve-notes)
+This entire section was made with the help of [Nginx ArchWiki](#7-nginx) and [Week 10 Notes](#8-week-twelve-notes).
 Here we will be using nginx to configure an active server. We will be editing the main conf file given to us by default and we will be creating our own seperate server block file. We create our own server block file because it keeps the configuration files clean and simple, it is easier to debug since it won't affect the other parts on the main configurations, and it is one of the best practices. We will be checking the status of the service with systemctl command lines and we will test our nginx configuration with `sudo nginx -t`.
 
 1. Install Nginx
@@ -216,7 +216,7 @@ sudo journalctl -u nginx
 ```
 
 ## Task 4 Setting up UFW Firewall
-Here we will set up a simple firewall and check the status of the firewall with `sudo ufw status` after we are done.
+Here we will set up a simple firewall and check the status of the firewall with `sudo ufw status` after we are done. [[9]](#9-uncomplicated-firewall)
 1. Install UFW
 ```
 sudo pacman -S ufw
@@ -293,3 +293,5 @@ ArchWiki, "Nginx," https://wiki.archlinux.org/title/Nginx (accessed Nov. 23, 202
 GitLab, "Week Twelve Notes," https://gitlab.com/cit2420/2420-notes-f24/-/blob/main/2420-notes/week-twelve.md (accessed Nov. 23, 2024).
 #### [9] Uncomplicated Firewall
 ArchWiki, "Uncomplicated Firewall," https://wiki.archlinux.org/title/Uncomplicated_Firewall (accessed Nov. 23, 2024).
+#### [10] Users and Groups: Example Adding a System User,
+ArchWiki, "Users and Groups: Example Adding a System User" https://wiki.archlinux.org/title/Users_and_groups#Example_adding_a_system_user (accessed Nov. 22, 2024).
