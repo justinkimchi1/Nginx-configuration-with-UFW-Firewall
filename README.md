@@ -34,9 +34,9 @@ Now `cd` into the 2420-as2-start starter directory that we cloned in the previou
 cd 2420-as2-start
 ```
 
-And move the `generate-index` file into your new directory with this:
+And move the `generate_index` file into your new directory with this:
 ```
-sudo mv generate-index /var/lib/webgen/bin/
+sudo mv generate_index /var/lib/webgen/bin/
 ```
 
 Now create the index.html file
@@ -65,7 +65,7 @@ Paste this into the file [[4]](#4-systemdtimers)
 Description="Runs the generate_index script everyday at 5:00"
 
 [Service]
-ExecStart=/var/lib/webgen/bin/generate-index
+ExecStart=/var/lib/webgen/bin/generate_index
 User=webgen
 Group=webgen
 ```
