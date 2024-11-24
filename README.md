@@ -115,7 +115,7 @@ journalctl -u generate-index.service
 You have created your service and timer files!
 
 ## Task 3 Nginx Configuration
-This entire section was made with the help of [Nginx ArchWiki](#7-nginx) and [Week 10 Notes](#8-week-ten-notes)
+This entire section was made with the help of [Nginx ArchWiki](#7-nginx) and [Week 10 Notes](#8-week-twelve-notes)
 1. Install Nginx
 ```
 sudo pacman -S nginx
@@ -211,6 +211,7 @@ systemctl start/enable/restart/stop nginx
 sudo journalctl -u nginx
 ```
 
+## Task 4 Setting up UFW Firewall
 
 
 # References
@@ -228,5 +229,5 @@ Arch Linux Manual Pages, "Systemctl(1)," https://man.archlinux.org/man/systemctl
 ArchWiki, "Systemd/Journal," https://wiki.archlinux.org/title/Systemd/Journal (accessed Nov. 22, 2024).
 #### [7] Nginx
 ArchWiki, "Nginx," https://wiki.archlinux.org/title/Nginx (accessed Nov. 22, 2024).
-#### [8] Week Ten Notes
-GitLab, "Week Ten Notes," https://gitlab.com/cit2420/2420-notes-f24/-/blob/main/2420-notes/week-ten.md (accessed Nov. 22, 2024).
+#### [8] Week Twelve Notes
+GitLab, "Week Twelve Notes," https://gitlab.com/cit2420/2420-notes-f24/-/blob/main/2420-notes/week-twelve.md (accessed Nov. 22, 2024).
