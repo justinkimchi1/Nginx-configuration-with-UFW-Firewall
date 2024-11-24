@@ -294,4 +294,4 @@ GitLab, "Week Twelve Notes," https://gitlab.com/cit2420/2420-notes-f24/-/blob/ma
 #### [9] Uncomplicated Firewall
 ArchWiki, "Uncomplicated Firewall," https://wiki.archlinux.org/title/Uncomplicated_Firewall (accessed Nov. 23, 2024).
 #### [10] Users and Groups: Example Adding a System User,
-ArchWiki, "Users and Groups: Example Adding a System User" https://wiki.archlinux.org/title/Users_and_groups#Example_adding_a_system_user (accessed Nov. 22, 2024).
+ArchWiki, "Users and Groups: Example Adding a System User" https://wiki.archlinux.org/title/Users_and_groups#Example_adding_a_system_user (accessed Nov. 23, 2024).
