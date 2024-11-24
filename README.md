@@ -60,9 +60,9 @@ You have finished creating a system user with the appropriate directory structur
 sudo nvim /etc/systemd/system/generate-index.service
 ```
 Paste this into the file [[4]](#4-systemdtimers)
-```
+```bash
 [Unit]
-Description=Runs the generate_index script everyday at 5:00
+Description="Runs the generate_index script everyday at 5:00"
 
 [Service]
 ExecStart=/var/lib/webgen/bin/generate-index
@@ -78,7 +78,7 @@ sudo nvim /etc/systemd/system/generate-index.timer
 ```
 
 Paste this into the file [[4]](#4-systemdtimers)
-```
+```bash
 [Unit]
 Description="Run the generate-index.service at 5:00 am everyday"
 
@@ -114,16 +114,119 @@ journalctl -u generate-index.service
 ```
 You have created your service and timer files!
 
+## Task 3 Nginx Configuration
+This entire section was made with the help of [Nginx ArchWiki](#7-nginx) and [Week 10 Notes](#8-week-ten-notes)
+1. Install Nginx
+```
+sudo pacman -S nginx
+```
+2. Start and enable the service
+```
+sudo systemctl start nginx.service
+sudo systemctl enable nginx.service
+```
+Check if it is active and running with 
+```
+systemctl status nginx.service
+```
+
+3. Modify the nginx configuration file
+```
+sudo nvim /etc/nginx/nginx.conf
+```
+Here we have to configure the file so that it runs with our `webgen` user and that is serves our `index.html` file on port 80. To do this we first need to change `user` from `http` to `webgen`:
+```bash
+user webgen webgen
+```
+> This tells nginx to run the master process as `webgen`. This gives the configuration files the correct permissions to manage files in `webgen`'s directories
+
+Add this line of code into you `http` section
+```bash
+http {
+    include /etc/nginx/sites-enabled/*;
+}
+```
+This helps load our other configuration files that we will make in the next steps
+
+4. Create seperate server block directories
+```
+sudo mkdir /etc/nginx/sites-available
+sudo mkdir /etc/nginx/sites-enabled 
+```
+
+5. Create configuration file inside `sites-available` directory
+```
+sudo nvim /etc/nginx/sites-available/webgen.conf
+```
+Paste the following server block into the configuration file
+```bash
+server {
+        # listening on port 80
+        listen 80;
+        # listening to HTTPS connections using IPv6
+        listen [::]:80;
+
+        # giving server a name
+        server_name local.webgen;
+
+        # specify where our content is
+        root /var/lib/webgen/HTML;
+        # specify the index html document
+        index index.html;
+
+        # specify what to do if a user requests our project root
+                location / {
+                        # checking for specific files, if none are found we return a 404 error
+                        try_files $uri $uri/ =404;
+                }
+        }
+```
+
+6. Create a symlink to enable the site
+```
+sudo ln -s /etc/nginx/sites-available/webgen.conf /etc/nginx/sites-enabled/
+```
+7. Restart your nginx service
+```
+sudo systemctl retart nginx
+```
+
+You have configured your nginx server! 
+> Some troubleshooting:
+
+- Checking `webgen.conf` file for any errors: 
+```
+sudo nginx -t
+```
+- Checking the status of nginx:
+```
+systemctl status nginx
+```
+- Starting, enabling, restarting, stopping nginx:
+```
+systemctl start/enable/restart/stop nginx
+```
+- Checking journal log of service
+```
+sudo journalctl -u nginx
+```
+
+
+
 # References
-### [1] Useradd Command
+#### [1] Useradd Command
 SS64, "Useradd Command," https://ss64.com/bash/useradd.html (accessed Nov. 22, 2024). 
-### [2] Mkdir Command
+#### [2] Mkdir Command
 SS64, "Mkdir Command," https://ss64.com/bash/mkdir.html (accessed Nov. 22, 2024).
-### [3] Chown Command
+#### [3] Chown Command
 SS64, "Chown Command," https://ss64.com/bash/chown.html (accessed Nov. 22, 2024).
-### [4] Systemd/Timers
+#### [4] Systemd/Timers
 ArchWiki, "Systemd/Timers," https://wiki.archlinux.org/title/Systemd/Timers (accessed Nov. 22, 2024).
-### [5] Systemctl
+#### [5] Systemctl
 Arch Linux Manual Pages, "Systemctl(1)," https://man.archlinux.org/man/systemctl.1.en (accessed Nov. 22, 2024).
-### [6]Systemd/Journal
+#### [6]Systemd/Journal
 ArchWiki, "Systemd/Journal," https://wiki.archlinux.org/title/Systemd/Journal (accessed Nov. 22, 2024).
+#### [7] Nginx
+ArchWiki, "Nginx," https://wiki.archlinux.org/title/Nginx (accessed Nov. 22, 2024).
+#### [8] Week Ten Notes
+GitLab, "Week Ten Notes," https://gitlab.com/cit2420/2420-notes-f24/-/blob/main/2420-notes/week-ten.md (accessed Nov. 22, 2024).
