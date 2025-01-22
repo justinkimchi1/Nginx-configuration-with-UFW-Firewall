@@ -1,5 +1,5 @@
-# Assignment-3
-In this assignment we will be performing tasks such as creating new system users to run `.service` and `.timer` scripts on a Nginx server with a UFW firewall. 
+# Nginx Configuration with UFW Firewall
+In this project, we will be performing tasks such as creating new system users to run `.service` and `.timer` scripts on a Nginx server with a UFW firewall. 
 
 ## Task 1 Creating a System User
 Here we will create a system user with a specified home directory and a login shell appropriate for a non-login user. We use a system user here because they are used for specific purposes such as running our nginx server in this case. If the nginx configuration gets compromised, it won't affect other parts of the system. Also system users cannot log in, further restricting access and improving security. [[10]](#10-users-and-groups-example-adding-a-system-user)
